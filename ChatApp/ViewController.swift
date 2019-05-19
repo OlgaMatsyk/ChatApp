@@ -7,8 +7,19 @@
 //
 
 import UIKit
+import Chatto
+import ChattoAdditions
 
-class ViewController: UIViewController {
+class ChatLogController: BaseChatViewController {
+    
+    override func createPresenterBuilders() -> [ChatItemType : [ChatItemPresenterBuilderProtocol]] {
+        return [ChatItemType : [ChatItemPresenterBuilderProtocol]]()
+    }
+    
+    override func createChatInputView() -> UIView {
+        let inputbar = ChatInputBar.loadNib()
+        return inputbar
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
