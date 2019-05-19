@@ -1,0 +1,32 @@
+PODS:
+  - Chatto (3.4.0)
+  - ChattoAdditions (3.4.0):
+    - Chatto
+
+DEPENDENCIES:
+  - Chatto (from `https://github.com/badoo/Chatto`, branch `master`)
+  - ChattoAdditions (from `https://github.com/badoo/Chatto`, branch `master`)
+
+EXTERNAL SOURCES:
+  Chatto:
+    :branch: master
+    :git: https://github.com/badoo/Chatto
+  ChattoAdditions:
+    :branch: master
+    :git: https://github.com/badoo/Chatto
+
+CHECKOUT OPTIONS:
+  Chatto:
+    :commit: a7e296f3d0b9c8354608bdc28e0e24797ad3dec9
+    :git: https://github.com/badoo/Chatto
+  ChattoAdditions:
+    :commit: a7e296f3d0b9c8354608bdc28e0e24797ad3dec9
+    :git: https://github.com/badoo/Chatto
+
+SPEC CHECKSUMS:
+  Chatto: c00cb1af4c57b797041ce77a115d4f535ec54991
+  ChattoAdditions: 24617c63386fbaf971f11514fdc748d37f66f093
+
+PODFILE CHECKSUM: f17d138ca25523405267a2f74e9940765e8552a9
+
+COCOAPODS: 1.5.0
