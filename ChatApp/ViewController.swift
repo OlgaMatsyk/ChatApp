@@ -15,9 +15,16 @@ class ChatLogController: BaseChatViewController {
     override func createPresenterBuilders() -> [ChatItemType : [ChatItemPresenterBuilderProtocol]] {
         return [ChatItemType : [ChatItemPresenterBuilderProtocol]]()
     }
+    var presenter: BasicChatInputBarPresenter!
     
     override func createChatInputView() -> UIView {
         let inputbar = ChatInputBar.loadNib()
+        var appearance = ChatInputBarAppearance()
+        appearance.sendButtonAppearance.title = "Send message"
+        appearance.textInputAppearance.placeholderText = "Type a message..."
+        self.presenter = BasicChatInputBarPresenter(chatInputBar: inputbar, chatInputItems: [ChatInputItemProtocol]()
+            , chatInputBarAppearance: appearance)
+        
         return inputbar
     }
 
