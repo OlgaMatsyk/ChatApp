@@ -14,6 +14,9 @@ class ChatLogController: BaseChatViewController {
     
     var presenter: BasicChatInputBarPresenter!
     var dataSource: DataSource!
+    var decorator = Decorator()
+    var totalMessages = [ChatItemProtocol]()
+    
     override func createPresenterBuilders() -> [ChatItemType : [ChatItemPresenterBuilderProtocol]] {
         return [ChatItemType : [ChatItemPresenterBuilderProtocol]]()
     }
@@ -47,7 +50,14 @@ class ChatLogController: BaseChatViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        for i in 1...295 {
+            totalMessages.append(TextModel(messageModel: MessageModel(uid: "\(i)", senderId: "\(i)", type: TextModel.chatItemType, isIncoming: false, date: Date(), status: .success), text: "\(i)"))
+        }
+
+        self.dataSource = DataSource(totalMessages: totalMessages)
+        self.chatDataSource = self.dataSource
+        self.chatItemsDecorator = self.decorator
     }
 
 
