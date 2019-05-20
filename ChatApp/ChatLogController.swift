@@ -12,10 +12,11 @@ import ChattoAdditions
 
 class ChatLogController: BaseChatViewController {
     
+    var presenter: BasicChatInputBarPresenter!
+    var dataSource: DataSource!
     override func createPresenterBuilders() -> [ChatItemType : [ChatItemPresenterBuilderProtocol]] {
         return [ChatItemType : [ChatItemPresenterBuilderProtocol]]()
     }
-    var presenter: BasicChatInputBarPresenter!
     
     override func createChatInputView() -> UIView {
         let inputbar = ChatInputBar.loadNib()
@@ -32,6 +33,14 @@ class ChatLogController: BaseChatViewController {
         let item = TextChatInputItem()
         item.textInputHandler = {text in
             print(text)
+            let date = Date()
+            let double = date.timeIntervalSinceReferenceDate
+            let senderId = "me"
+            
+            let message = MessageModel(uid: "\(senderId, double)", senderId: senderId, type: TextModel.chatItemType, isIncoming: false, date: date, status: .success)
+            let textMessage = TextModel(messageModel: message, text: text)
+            self.dataSource.addMessage(message: textMessage)
+
         }
         return item;
     }
