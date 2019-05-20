@@ -22,10 +22,18 @@ class ChatLogController: BaseChatViewController {
         var appearance = ChatInputBarAppearance()
         appearance.sendButtonAppearance.title = "Send message"
         appearance.textInputAppearance.placeholderText = "Type a message..."
-        self.presenter = BasicChatInputBarPresenter(chatInputBar: inputbar, chatInputItems: [ChatInputItemProtocol]()
+        self.presenter = BasicChatInputBarPresenter(chatInputBar: inputbar, chatInputItems: [handleSend()]
             , chatInputBarAppearance: appearance)
         
         return inputbar
+    }
+    
+    func handleSend() -> TextChatInputItem{
+        let item = TextChatInputItem()
+        item.textInputHandler = {text in
+            print(text)
+        }
+        return item;
     }
 
     override func viewDidLoad() {
