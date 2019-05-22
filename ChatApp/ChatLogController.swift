@@ -20,8 +20,10 @@ class ChatLogController: BaseChatViewController {
     override func createPresenterBuilders() -> [ChatItemType : [ChatItemPresenterBuilderProtocol]] {
         
         let textMessageBuilder = TextMessagePresenterBuilder(viewModelBuilder: TextBuilder(), interactionHandler: TextHandler())
+        let photoMessageBuilder = PhotoMessagePresenterBuilder(viewModelBuilder: PhotoBuilder(), interactionHandler: PhotoHandler())
 
-        return [TextModel.chatItemType : [textMessageBuilder]]
+        return [TextModel.chatItemType : [textMessageBuilder],
+                PhotoModel.chatItemType : [photoMessageBuilder]]
     }
     
     override func createChatInputView() -> UIView {
@@ -29,7 +31,7 @@ class ChatLogController: BaseChatViewController {
         var appearance = ChatInputBarAppearance()
         appearance.sendButtonAppearance.title = "Send message"
         appearance.textInputAppearance.placeholderText = "Type a message..."
-        self.presenter = BasicChatInputBarPresenter(chatInputBar: inputbar, chatInputItems: [handleSend()]
+        self.presenter = BasicChatInputBarPresenter(chatInputBar: inputbar, chatInputItems: [handleSend(), handlePhoto()]
             , chatInputBarAppearance: appearance)
         
         return inputbar
@@ -38,7 +40,6 @@ class ChatLogController: BaseChatViewController {
     func handleSend() -> TextChatInputItem{
         let item = TextChatInputItem()
         item.textInputHandler = {text in
-            print(text)
             let date = Date()
             let double = date.timeIntervalSinceReferenceDate
             let senderId = "me"
@@ -49,6 +50,20 @@ class ChatLogController: BaseChatViewController {
 
         }
         return item;
+    }
+    
+    func handlePhoto() -> PhotosChatInputItem {
+        let item = PhotosChatInputItem(presentingController: self)
+        item.photoInputHandler = { (photo, source) in
+            let date = Date()
+            let double = date.timeIntervalSinceReferenceDate
+            let senderId = "me"
+            let message = MessageModel(uid: "\(senderId, double)", senderId: senderId, type: PhotoModel.chatItemType, isIncoming: false, date: date, status: .success)
+            let photoMessage = PhotoModel(messageModel: message, imageSize: photo.size, image: photo)
+            self.dataSource.addMessage(message: photoMessage)
+        }
+        
+        return item
     }
 
     override func viewDidLoad() {

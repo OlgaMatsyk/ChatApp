@@ -19,7 +19,6 @@ class ChatItemsController {
         
         for index in stride(from: totalMessages.count - items.count, to: totalMessages.count - items.count - messagedNeeded, by: -1) {
             self.items.insert(totalMessages[index - 1], at: 0)
-            
         }
     }
     
